@@ -1,0 +1,59 @@
+.userProfile {
+  display: flex;
+  padding: 10px 27px;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../../assets/images/bannerBackground.png') center no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 345px;
+  max-height: 345px;
+  height: 100%;
+}
+
+.banner h1 {
+  color:#202329;
+  font-size: 101.25px;
+  font-weight: 900;
+  line-height: 111.375px;
+  text-align: center;
+  padding: 0 5px;
+}
+
+@media (max-width: 600px) {
+  .userProfile {
+    padding: 10px 14px;
+  }
+  
+  .banner {
+    min-height: 300px;
+    max-height: 300px;
+  }
+  
+  .banner h1 {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 70px;
+  }
+}
+
+@media (max-width: 425px) {
+  .userProfile {
+    padding: 6px 10px;
+  }
+  
+  .banner {
+    min-height: 200px;
+    max-height: 200px;
+  }
+  
+  .banner h1 {
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+  }
+}
