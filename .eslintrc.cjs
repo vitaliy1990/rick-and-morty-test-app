@@ -47,8 +47,15 @@ module.exports = {
         'allowTemplateLiterals': true 
       }
     ],
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state',
+      ]
+    }],
     'import/prefer-default-export': 'off',
     'import/no-cycle': 'off',
     'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 }

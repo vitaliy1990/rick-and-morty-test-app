@@ -11,7 +11,6 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import FallbackErrorBoundary from './components/FallbackErrorBoundary/FallbackErrorBoundary';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Fab from './components/Fab/Fab';
 import Container from './components/Container/Container';
 
 const AppContainer: FC = () => {
@@ -41,7 +40,6 @@ const AppContainer: FC = () => {
             </Routes>
           </ErrorBoundary>
         </Container>
-        <Fab />
       </main>
       <Footer />
     </div>

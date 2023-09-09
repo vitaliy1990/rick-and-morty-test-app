@@ -8,6 +8,24 @@
   padding: 0;
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #dedede;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #9f9d9f;
+  border-radius: 10px;
+  border: 0px solid #b54040;
+}
+
+* a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background: #ffffff;

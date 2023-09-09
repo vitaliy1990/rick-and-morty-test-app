@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { mainPageSlice } from '../pages/MainPage/MainPageSlice';
+import { characterPageSlice } from '../pages/СharacterPage/СharacterPageSlice';
 
 export const store = configureStore({
   reducer: {
     main: mainPageSlice.reducer,
+    character: characterPageSlice.reducer,
   },
 });
 
