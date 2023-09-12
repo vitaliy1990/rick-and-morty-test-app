@@ -59,7 +59,6 @@ export const fetchCharacter = createAsyncThunk('product/fetchCharacter', async (
     const firstEpisodId = getFirstEpisodeId(characterResponse.data);
     const episodeResponse = firstEpisodId && (await CharacterPageAPI.getEpisodeById(firstEpisodId));
     const firstEpisodeName = episodeResponse && episodeResponse?.data.name;
-    debugger;
     return { ...characterResponse.data, firstEpisodeName };
   } catch (err) {
     const error = err as AxiosError<ServerError>;
