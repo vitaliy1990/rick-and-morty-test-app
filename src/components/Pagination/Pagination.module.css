@@ -1,0 +1,72 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14.8px;
+}
+
+.root button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: #3C3E44;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.20);
+  color: #F5F5F5;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.pagesWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9.6px;
+}
+
+.root button:disabled {
+  cursor: inherit;
+  background: #9E9E9E;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.20);
+
+}
+
+.root> .arrow:not([disabled]):first-child,
+.root> .arrow:disabled:last-child {
+  transform: rotate(180deg);
+}
+
+.root button.arrow:not([disabled]) {
+  border-radius: 4px;
+  background: #F5F5F5;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.20);
+}
+
+.root button.active {
+  background: #F5F5F5;
+  box-shadow: 0px 5px 14px 0px rgba(0, 0, 0, 0.12), 0px 9px 10px 0px rgba(0, 0, 0, 0.14), 0px 5px 5px 0px rgba(0, 0, 0, 0.20);
+  color: #202329;
+}
+
+@media (max-width: 380px) {
+  .root {
+    gap: 10px;
+  }
+
+  .root button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .pagesWrapper {
+    gap: 4px;
+  }
+}
