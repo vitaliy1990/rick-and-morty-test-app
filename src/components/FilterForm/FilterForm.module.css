@@ -1,0 +1,142 @@
+.root form {
+  display: flex;
+  gap: 28px;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  background: #F5F5F5;
+  padding: 8px 16px;
+  min-width: 213px;
+  height: 57px;
+  width: 100%;
+}
+
+.mainLabel {
+  color: #272B33;
+  padding: 8px 12px;
+  border-radius: 4px 4px 0px 0px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+
+button.mainLabel  {
+  cursor: pointer;
+}
+
+.mainLabel img {
+  margin-right: 6px;
+}
+
+.selectInputsWrapper {
+  position: absolute;
+  border-radius: 0px 0px 4px 4px;
+  overflow: hidden;
+}
+
+.selectInputsWrapper input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.selectInputsWrapper input[type='checkbox']:not(:checked) {
+  border: 2px solid rgba(0, 0, 0, 0.26);
+  appearance: inherit;
+  border-radius: 3px;
+}
+
+.root button[type='submit'] {
+  width: 143px;
+  border-radius: 4px;
+  padding: 0 16px;
+  border: none;
+}
+
+.searchFormWrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 260px;
+  width: 100%;
+  position: relative;
+}
+
+.searchInputsWrapper {
+  position: absolute;
+  width: 100%;
+}
+
+.searchFormWrapper input[type='text'] {
+  border: none;
+  outline: none;
+  background: #F5F5F5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+
+.searchInputsWrapper input[type='text']:last-child {
+  border-radius: 0px 0px 4px 4px;
+  border: none;
+}
+
+.searchFormWrapper input[type='text']::placeholder {
+  color: #272B33;
+}
+
+@media (max-width: 680px) {
+  .root form {
+    gap: 10px;
+  }
+
+  .selectWrapper {
+    min-width: 120px;
+  }
+
+  .label {
+    padding: 4px 8px;
+    min-width: 120px;
+    height: 30px;
+    width: 100%;
+  }
+  
+  .mainLabel {
+    padding: 4px 6px;
+  }
+  
+}
+
+@media (max-width: 560px) {
+
+  .root form {
+    flex-direction: column;
+  }
+
+  .label {
+    padding: 4px 8px;
+    min-width: 100px;
+    height: 30px;
+    width: 100%;
+  }
+
+  .selectInputsWrapper {
+    position: relative;
+  }
+
+  .searchInputsWrapper {
+    position: relative;
+  }
+
+  .root button[type='submit'] {
+    padding: 8px 16px;
+  }
+  
+}

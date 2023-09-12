@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 161px;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #272B33;
+  border-radius: 4px;
+  border: none;
+  background: #F5F5F5;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 24px;
+  padding: 11px 16px;
+  min-width: 154px;
+  height: 57px;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .root {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    flex-direction: column;
+  }
+
+  .filterButton {
+    padding: 6px 6px;
+    min-width: 120px;
+    height: 30px;
+  }
+}
