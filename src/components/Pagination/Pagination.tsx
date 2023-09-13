@@ -6,7 +6,7 @@ import { usePagination } from '../../hooks/usePagination';
 import disableArrowIcon from '../../assets/icons/disableArrowIcon.svg';
 import activeArrowIcon from '../../assets/icons/activeArrowIcon.svg';
 
-const Pagination: FC<PaginationPropTypes> = ({ pagesCount, className, handleClickPage, currentPage = 1, pageSize = 10 }) => {
+const Pagination: FC<PaginationPropTypes> = ({ className, handleClickPage, pagesCount = 1, currentPage = 1, pageSize = 10 }) => {
   const paginationRange = usePagination({
     currentPage,
     pagesCount,

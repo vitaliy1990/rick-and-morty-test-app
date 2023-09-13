@@ -1,7 +1,7 @@
 export interface PaginationPropTypes {
-  pagesCount: number;
+  pagesCount: number | undefined;
   className?: string;
-  handleClickPage?: (page: number | string) => void;
+  handleClickPage?: (page: number /* | string */) => void;
   currentPage?: number;
   pageSize?: number;
 }

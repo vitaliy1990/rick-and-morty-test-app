@@ -4,7 +4,7 @@ export interface FilterFormProps {
   handleSubmitForm: (endpoint: SelectName, param: [string, string][]) => void;
 }
 
-export interface FormValues {
+export interface FormFilterValues {
   character: boolean;
   location: boolean;
   episodes: boolean;
@@ -45,6 +45,10 @@ export interface SearchFilterInputs {
   id: number;
   name: keyof SearchValues;
   placeholder: string;
+}
+
+export interface IfieldValidValues {
+  [key: string]: Array<string>;
 }
 
 export type FilterInputs = { [key in SelectName]: Array<SearchFilterInputs> };

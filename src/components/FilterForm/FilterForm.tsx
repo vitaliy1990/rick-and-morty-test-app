@@ -3,20 +3,20 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import classNames from 'classnames';
 import css from './FilterForm.module.css';
 import arrowDropDownIcon from '../../assets/icons/arrowDropDownIcon.svg';
-import { CheckboxField, FilterFormProps, FormValues, SearchFilterInputs } from './types';
+import { CheckboxField, FilterFormProps, FormFilterValues, SearchFilterInputs } from './types';
 import { generateSearchParamsList } from '../../utils/API';
-import { filterInputs, selectCheckboxFields } from './const';
+import { fieldValidValues, filterInputs, selectCheckboxFields } from './const';
 import { SelectName } from '../../types';
+import { validateFieldValue } from '../../utils/validation';
 
 const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isDirty, isValid },
-  } = useForm<FormValues>({
-    /* mode: 'onBlur',
-    resolver: customResolver, */
+    formState: { errors, isDirty, isValid },
+  } = useForm<FormFilterValues>({
+    mode: 'onBlur',
   });
 
   const [checkboxCheckedName, setCheckboxCheckedName] = useState<SelectName | null>(null);
@@ -28,7 +28,7 @@ const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
     setCheckboxCheckedName(null);
   };
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormFilterValues> = (data) => {
     const searchParamsList = generateSearchParamsList(data);
     const endpointName = checkboxCheckedName || SelectName.character;
     resetForm();
@@ -67,17 +67,27 @@ const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
       checkboxCheckedName &&
       filterInputs[checkboxCheckedName].map((input: SearchFilterInputs) => {
         const className = input.id === 1 ? mainLabelClassNames : css.label;
+        const isValidateField = input.name === 'gender' || input.name === 'status';
+        const validate = (values: string) => validateFieldValue(values, input.name);
+        const errorMessage = isValidateField && `Please enter one of values: ${fieldValidValues[input.name].join(', ')}`;
         return (
-          <input
+          <div
+            className={css.inputWrapper}
             key={input.id}
-            type='text'
-            {...register(input.name)}
-            className={className}
-            placeholder={input.placeholder}
-          />
+            data-error={errors[input.name]}
+          >
+            <input
+              type='text'
+              {...register(input.name, {
+                validate: isValidateField ? validate : {},
+              })}
+              className={className}
+              placeholder={input.placeholder}
+            />
+            {errors[input.name] && <span className={css.error}>{errorMessage}</span>}
+          </div>
         );
       });
-
     return <div className={css.searchInputsWrapper}>{inputsList}</div>;
   };
 
@@ -114,7 +124,7 @@ const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
         </div>
         <button
           type='submit'
-          disabled={!isDirty}
+          disabled={!isDirty || !isValid}
         >
           FIND
         </button>

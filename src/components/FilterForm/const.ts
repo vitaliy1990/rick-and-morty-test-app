@@ -1,5 +1,5 @@
 import { SelectName } from '../../types';
-import { CheckboxField, FilterInputs, SearchFilterInputs } from './types';
+import { CheckboxField, FilterInputs, IfieldValidValues, SearchFilterInputs } from './types';
 
 export const selectCheckboxFields: Array<CheckboxField> = [
   {
@@ -42,4 +42,9 @@ export const filterInputs: FilterInputs = {
   [SelectName.character]: characterFilterInputs,
   [SelectName.location]: locationFilterInputs,
   [SelectName.episodes]: episodesFilterInputs,
+};
+
+export const fieldValidValues: IfieldValidValues = {
+  gender: ['female', 'male', 'genderless'],
+  status: ['alive', 'dead'],
 };

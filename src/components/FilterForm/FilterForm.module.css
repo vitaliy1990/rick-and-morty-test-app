@@ -83,13 +83,30 @@ button.mainLabel  {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
-.searchInputsWrapper input[type='text']:last-child {
+.searchInputsWrapper div:last-child {
   border-radius: 0px 0px 4px 4px;
   border: none;
+  overflow: hidden;
 }
 
 .searchFormWrapper input[type='text']::placeholder {
   color: #272B33;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+[data-error] input {
+  border: 1px solid rgba(250, 8, 8, 0.6) !important;
+}
+
+.error {
+  color: red;
+  left: 4px;
+  position: absolute;
+  top: 0;
+  font-size: 12px;
 }
 
 @media (max-width: 680px) {
@@ -110,6 +127,11 @@ button.mainLabel  {
   
   .mainLabel {
     padding: 4px 6px;
+  }
+
+  .error {
+    left: auto;
+    right: 0;
   }
   
 }
