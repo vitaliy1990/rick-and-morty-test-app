@@ -1,0 +1,81 @@
+.root {
+  position: fixed;
+  background: rgba(39, 43, 51, 0.80);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 10px 0;
+}
+
+.modalWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 419px;
+  max-height: 571px;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;;
+  border-radius: 9px 0px 0px 9px;
+  overflow-y: auto;
+}
+
+.historyDescription {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.historyDescription h2 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+}
+
+.historyItem {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.historyItem h3 {
+  color: rgba(0, 0, 0, 0.60);
+}
+
+.historyItem p{ 
+  color: rgba(0, 0, 0, 0.60);
+}
+
+.buttonWrapper {
+  padding: 16px 8px;
+}
+
+.buttonWrapper button {
+  display: flex;
+  letter-spacing: 1.25px;
+  align-items: center;
+  justify-content: center;
+  color: #1976D2;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  padding: 0 16px;
+  height: 36px;
+  background: transparent;
+}
+
+.historyText {
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
