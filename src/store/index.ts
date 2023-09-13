@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { mainPageSlice } from '../pages/MainPage/MainPageSlice';
 import { characterPageSlice } from '../pages/СharacterPage/СharacterPageSlice';
 
@@ -7,6 +7,9 @@ export const store = configureStore({
     main: mainPageSlice.reducer,
     character: characterPageSlice.reducer,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export type AppDispatch = typeof store.dispatch;

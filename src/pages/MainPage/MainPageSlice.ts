@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { AxiosError } from 'axios';
 import { RootState } from '../../store';
 import MainPageAPI from './MainPageAPI';
 import { MainPageState } from './types';
-import { Character, CharactersResponse, ServerError } from '../../types';
-import { getFirstEpisodeId } from '../../utils/API';
+import { CharactersResponse, ServerError } from '../../types';
+import { fetchFirstEpisodeNameCharacters, getFilterCharacters } from '../../utils/API';
 
 export const initialState: MainPageState = {
   characters: null,
@@ -19,6 +18,9 @@ export const mainPageSlice = createSlice({
   reducers: {
     setError(state, action) {
       state.error = action.payload;
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload;
     },
     clearError(state) {
       state.error = null;
@@ -36,8 +38,8 @@ export const mainPageSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchCharacters.fulfilled, (state, action) => {
-        mainPageSlice.caseReducers.setCharacters(state, action);
-        mainPageSlice.caseReducers.clearError(state);
+        state.characters = action.payload;
+        state.error = null;
         state.isLoading = false;
       })
       .addCase(fetchCharacters.rejected, (state, action) => {
@@ -47,26 +49,18 @@ export const mainPageSlice = createSlice({
   },
 });
 
-export const { setError, clearError, setCharacters, clearCharacters } = mainPageSlice.actions;
+export const { setError, clearError, setCharacters, clearCharacters, setIsLoading } = mainPageSlice.actions;
 
 export const selectIsLoading = (state: RootState) => state.main.isLoading;
 export const selectCharacters = (state: RootState) => state.main.characters;
 export const selectError = (state: RootState) => state.main.error;
 
-export const fetchCharacters = createAsyncThunk('product/fetchCharacters', async (page: number, { rejectWithValue }) => {
+export const fetchCharacters = createAsyncThunk('product/fetchCharacters', async (searchParams: string, { rejectWithValue }) => {
   try {
-    const response = await MainPageAPI.getCharactersByPage(page);
-    const characters = response.data;
-    const charactersList = await Promise.all(
-      characters.results.map(async (character: Character) => {
-        const firstEpisodId = getFirstEpisodeId(character);
-        const episode = firstEpisodId && (await MainPageAPI.getEpisodeById(firstEpisodId));
-        const firstEpisodeName = episode && episode?.data.name;
-
-        return { ...character, firstEpisodeName };
-      })
-    );
-    return { ...characters, results: charactersList };
+    const response = await MainPageAPI.getCharacters(searchParams);
+    const charactersProfiles = response.data;
+    const charactersWithFirstEpisodeList = await fetchFirstEpisodeNameCharacters(charactersProfiles.results);
+    return { ...charactersProfiles, results: charactersWithFirstEpisodeList };
   } catch (err) {
     const error = err as AxiosError<ServerError>;
     return rejectWithValue({
@@ -76,16 +70,42 @@ export const fetchCharacters = createAsyncThunk('product/fetchCharacters', async
   }
 });
 
-/* export const fetchEpisodeById = createAsyncThunk('product/fetchEpisodeById', async (id: number, { rejectWithValue }) => {
+export const fetchCharactersByLocations = createAsyncThunk('product/fetchCharactersByLocations', async (searchParams: string, { rejectWithValue, dispatch }) => {
   try {
-    const response = await MainPageAPI.getEpisodeById(id);
-    return response.data;
+    dispatch(setIsLoading(true));
+    const responseLocation = await MainPageAPI.getLocations(searchParams);
+    const response = await getFilterCharacters(responseLocation.data);
+    dispatch(setCharacters(response));
+    dispatch(setIsLoading(false));
   } catch (err) {
     const error = err as AxiosError<ServerError>;
-
-    return rejectWithValue({
+    const errorData = {
       message: error?.message,
       status: error?.response?.status,
-    });
+    };
+
+    dispatch(setError(errorData));
+    dispatch(setIsLoading(false));
+    return rejectWithValue(errorData);
   }
-}); */
+});
+
+export const fetchCharactersByEpisodes = createAsyncThunk('product/fetchCharactersByEpisodes', async (searchParams: string, { rejectWithValue, dispatch }) => {
+  try {
+    dispatch(setIsLoading(true));
+    const responseEpisode = await MainPageAPI.getEpisodes(searchParams);
+    const response = await getFilterCharacters(responseEpisode.data);
+    dispatch(setCharacters(response));
+    dispatch(setIsLoading(false));
+  } catch (err) {
+    const error = err as AxiosError<ServerError>;
+    const errorData = {
+      message: error?.message,
+      status: error?.response?.status,
+    };
+
+    dispatch(setError(errorData));
+    dispatch(setIsLoading(false));
+    return rejectWithValue(errorData);
+  }
+});

@@ -13,4 +13,14 @@ export const getDataFromLocalStorage = (key: string) => {
   return null;
 };
 
-export const removeLocalStorage = (key: string) => localStorage.removeItem(key);
+export const removeItemLocalStorage = (key: string) => localStorage.removeItem(key);
+
+export const removeRestItemsLocalStorage = (key: string) => {
+  const localStorageKeys = Object.keys(localStorage);
+
+  localStorageKeys.forEach((storageKey: string) => {
+    if (storageKey !== key && storageKey !== 'profile') {
+      removeItemLocalStorage(storageKey);
+    }
+  });
+};

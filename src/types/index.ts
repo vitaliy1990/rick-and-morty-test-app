@@ -1,5 +1,5 @@
 export interface CharactersResponse {
-  info: PageInfo;
+  info?: PageInfo;
   results: Array<Character>;
 }
 
@@ -51,6 +51,25 @@ export interface Episode {
   air_date: string;
   episode: string;
   characters: Array<string>;
+  url: string;
+  created: string;
+}
+
+export interface LocationResponse {
+  info: PageInfo;
+  results: Array<ILocationResults>;
+}
+
+export interface IObjectKeys {
+  [key: string]: Array<string> | string | number;
+}
+
+export interface ILocationResults extends IObjectKeys {
+  id: number;
+  name: string;
+  type: string;
+  dimension: string;
+  residents: Array<string>;
   url: string;
   created: string;
 }

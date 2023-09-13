@@ -15,7 +15,7 @@
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.5px;
-  background: #F5F5F5;
+  background: #f5f5f5;
   padding: 8px 16px;
   min-width: 213px;
   height: 57px;
@@ -23,14 +23,14 @@
 }
 
 .mainLabel {
-  color: #272B33;
+  color: #272b33;
   padding: 8px 12px;
   border-radius: 4px 4px 0px 0px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
-button.mainLabel  {
+button.mainLabel {
   cursor: pointer;
 }
 
@@ -61,6 +61,11 @@ button.mainLabel  {
   border-radius: 4px;
   padding: 0 16px;
   border: none;
+  cursor: pointer;
+}
+
+.root button[type='submit']:disabled {
+  cursor: unset;
 }
 
 .searchFormWrapper {
@@ -79,7 +84,7 @@ button.mainLabel  {
 .searchFormWrapper input[type='text'] {
   border: none;
   outline: none;
-  background: #F5F5F5;
+  background: #f5f5f5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
@@ -90,7 +95,7 @@ button.mainLabel  {
 }
 
 .searchFormWrapper input[type='text']::placeholder {
-  color: #272B33;
+  color: #272b33;
 }
 
 .inputWrapper {
@@ -124,7 +129,7 @@ button.mainLabel  {
     height: 30px;
     width: 100%;
   }
-  
+
   .mainLabel {
     padding: 4px 6px;
   }
@@ -133,11 +138,9 @@ button.mainLabel  {
     left: auto;
     right: 0;
   }
-  
 }
 
 @media (max-width: 560px) {
-
   .root form {
     flex-direction: column;
   }
@@ -160,5 +163,4 @@ button.mainLabel  {
   .root button[type='submit'] {
     padding: 8px 16px;
   }
-  
 }
