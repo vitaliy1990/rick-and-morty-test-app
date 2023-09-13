@@ -60,5 +60,6 @@ module.exports = {
     'react/no-array-index-key': 'off',
     '@typescript-eslint/naming-convention': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'consistent-return': 'off',
   },
 }

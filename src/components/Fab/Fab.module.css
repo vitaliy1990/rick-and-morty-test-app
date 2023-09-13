@@ -48,10 +48,11 @@
 
 button:disabled {
   cursor: default !important;
+  opacity: 0.5;
 }
 
 @media (max-width: 1290px) {
-  .fabButton {
+  .fabWrapper {
     margin-right: 0;
   }
 }

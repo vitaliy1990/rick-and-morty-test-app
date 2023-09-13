@@ -1,4 +1,5 @@
-import { CheckboxField, FilterInputs, SearchFilterInputs, SelectName } from './types';
+import { SelectName } from '../../types';
+import { CheckboxField, FilterInputs, SearchFilterInputs } from './types';
 
 export const selectCheckboxFields: Array<CheckboxField> = [
   {

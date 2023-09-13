@@ -3,9 +3,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import classNames from 'classnames';
 import css from './FilterForm.module.css';
 import arrowDropDownIcon from '../../assets/icons/arrowDropDownIcon.svg';
-import { CheckboxField, FilterFormProps, FormValues, SearchFilterInputs, SelectName } from './types';
+import { CheckboxField, FilterFormProps, FormValues, SearchFilterInputs } from './types';
 import { generateSearchParamsList } from '../../utils/API';
 import { filterInputs, selectCheckboxFields } from './const';
+import { SelectName } from '../../types';
 
 const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
   const {
@@ -21,11 +22,17 @@ const FilterForm: FC<FilterFormProps> = ({ handleSubmitForm }) => {
   const [checkboxCheckedName, setCheckboxCheckedName] = useState<SelectName | null>(null);
   const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
 
+  const resetForm = () => {
+    reset();
+    setIsOpenSelect(false);
+    setCheckboxCheckedName(null);
+  };
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const searchParamsList = generateSearchParamsList(data);
     const endpointName = checkboxCheckedName || SelectName.character;
+    resetForm();
     handleSubmitForm(endpointName, searchParamsList);
-    setIsOpenSelect(false);
   };
 
   const mainLabelClassNames = classNames(css.label, css.mainLabel);

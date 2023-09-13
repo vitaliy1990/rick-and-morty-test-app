@@ -21,10 +21,15 @@ const СharacterPage: FC = () => {
       dispatch(fetchCharacter(characterId));
     }
 
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     return () => {
       dispatch(clearCharacterProfile());
     };
-  }, []);
+  }, [characterId]);
 
   if (isLoading) {
     return <Loader />;

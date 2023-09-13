@@ -1,3 +1,5 @@
+import { SelectName } from '../../types';
+
 export interface FilterFormProps {
   handleSubmitForm: (endpoint: SelectName, param: [string, string][]) => void;
 }
@@ -14,12 +16,6 @@ export interface FormValues {
   gender: genderTypes;
   dimension: string;
   episode: string;
-}
-
-export enum SelectName {
-  character = 'character',
-  location = 'location',
-  episodes = 'episodes',
 }
 
 export interface FormSelectValues {

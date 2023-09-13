@@ -3,6 +3,12 @@ export interface CharactersResponse {
   results: Array<Character>;
 }
 
+export enum SelectName {
+  character = 'character',
+  location = 'location',
+  episodes = 'episodes',
+}
+
 export interface PageInfo {
   count: number;
   pages: number;

@@ -1,12 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import css from './СharacterCard.module.css';
 import { CharacterCard } from './types';
+import { setDataInLocalStorage } from '../../utils/browser';
 
 const СharacterCard: FC<CharacterCard> = ({ id, name, status, species, image, location, firstEpisodeName, size = 'small' }) => {
   const rootClassName = classNames(css.root, css[size]);
   const classNameStatus = status.toLocaleLowerCase();
+
+  useEffect(() => {
+    if (size === 'large') {
+      const profile = { id, name };
+      return () => setDataInLocalStorage('profile', profile);
+    }
+  }, []);
 
   return (
     <div className={rootClassName}>
