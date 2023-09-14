@@ -1,0 +1,16 @@
+.root {
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  text-align: center;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .root {
+    font-size: 20px;
+    padding: 10px;
+  }
+}

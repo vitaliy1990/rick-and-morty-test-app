@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import css from './MainPage.module.css';
 import Loader from '../../components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchCharacters, selectIsLoading, selectCharacters, selectError, clearCharacters, fetchCharactersByLocations, fetchCharactersByEpisodes } from './MainPageSlice';
+import { fetchCharacters, selectIsLoading, selectCharacters, selectError, fetchCharactersByLocations, fetchCharactersByEpisodes, resetMainState } from './MainPageSlice';
 import СharacterCard from '../../components/СharacterCard/СharacterCard';
 import { Character, SelectName } from '../../types';
 import Fab from '../../components/Fab/Fab';
@@ -19,29 +19,44 @@ const MainPage: FC = () => {
   const error = useAppSelector(selectError);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(searchParams.get('page') || 1);
 
   useEffect(() => {
-    dispatch(fetchCharacters(searchParams.toString()));
-    return () => {
-      dispatch(clearCharacters());
-    };
+    const unuseParam = searchParams.has('location') || searchParams.has('episode');
+    if (unuseParam) {
+      navigate('/');
+    }
   }, []);
 
   useEffect(() => {
-    const unwatchParam = searchParams.has('location' || 'episode');
-    if (!unwatchParam) {
-      dispatch(fetchCharacters(searchParams.toString()));
+    const unuseParam = searchParams.has('location') || searchParams.has('episode');
 
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+    if (!unuseParam) {
+      dispatch(fetchCharacters(searchParams.toString()));
     }
-  }, [pageNumber, searchParams]);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
+    return () => {
+      dispatch(resetMainState());
+    };
+  }, [searchParams]);
 
   if (error) {
-    return <Navigate to='/404' />;
+    return (
+      <Navigate
+        to='/404'
+        state={{ message: `There are no search matches...` }}
+      />
+    );
+  }
+
+  if (isLoading || !charactersList) {
+    return <Loader />;
   }
 
   const handleSubmit = (endpoint: SelectName, params: [string, string][]) => {
@@ -65,9 +80,9 @@ const MainPage: FC = () => {
     if (endpoint === SelectName.character) {
       const filterInputsValues = Object.fromEntries(searchData.params);
       setPageNumber('1');
-      setSearchParams({ ...filterInputsValues, page: '1' });
-      dispatch(fetchCharacters(paramsFilter));
+      setSearchParams({ ...filterInputsValues });
     }
+
     removeRestItemsLocalStorage(endpoint);
     setDataInLocalStorage(endpoint, params);
   };
@@ -85,10 +100,6 @@ const MainPage: FC = () => {
         firstEpisodeName={character.firstEpisodeName}
       />
     ));
-
-  if (isLoading || !charactersList) {
-    return <Loader />;
-  }
 
   const handleClickPage = (pagePointNumber: number) => {
     const currentParams = Object.fromEntries(searchParams.entries());

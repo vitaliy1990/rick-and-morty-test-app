@@ -31,6 +31,11 @@ export const mainPageSlice = createSlice({
     clearCharacters(state) {
       state.characters = null;
     },
+    resetMainState(state) {
+      state.characters = null;
+      state.error = null;
+      state.isLoading = false;
+    },
   },
   extraReducers(builder) {
     builder
@@ -49,7 +54,7 @@ export const mainPageSlice = createSlice({
   },
 });
 
-export const { setError, clearError, setCharacters, clearCharacters, setIsLoading } = mainPageSlice.actions;
+export const { setError, clearError, setCharacters, clearCharacters, setIsLoading, resetMainState } = mainPageSlice.actions;
 
 export const selectIsLoading = (state: RootState) => state.main.isLoading;
 export const selectCharacters = (state: RootState) => state.main.characters;
