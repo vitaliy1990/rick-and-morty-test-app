@@ -29,12 +29,15 @@ const MainPage: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchCharacters(searchParams.toString()));
+    const unwatchParam = searchParams.has('location' || 'episode');
+    if (!unwatchParam) {
+      dispatch(fetchCharacters(searchParams.toString()));
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   }, [pageNumber, searchParams]);
 
   if (error) {
@@ -51,10 +54,12 @@ const MainPage: FC = () => {
 
     if (endpoint === SelectName.episodes) {
       dispatch(fetchCharactersByEpisodes(paramsFilter));
+      setSearchParams({ episode: 'true' });
     }
 
     if (endpoint === SelectName.location) {
       dispatch(fetchCharactersByLocations(paramsFilter));
+      setSearchParams({ location: 'true' });
     }
 
     if (endpoint === SelectName.character) {
