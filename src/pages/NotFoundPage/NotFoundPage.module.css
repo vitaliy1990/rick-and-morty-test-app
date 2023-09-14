@@ -8,6 +8,24 @@
   flex-direction: column;
 }
 
+.infoMessage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.infoMessage a {
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-flex;
+  padding: 6px 12px;
+  background: dodgerblue;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+}
+
 @media (max-width: 600px) {
   .root {
     font-size: 20px;

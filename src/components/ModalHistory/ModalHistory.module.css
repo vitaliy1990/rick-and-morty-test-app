@@ -1,6 +1,6 @@
 .root {
   position: fixed;
-  background: rgba(39, 43, 51, 0.80);
+  background: rgba(39, 43, 51, 0.8);
   top: 0;
   bottom: 0;
   left: 0;
@@ -20,7 +20,7 @@
   max-height: 571px;
   height: 100%;
   color: rgba(0, 0, 0, 0.87);
-  background: #fff;;
+  background: #fff;
   border-radius: 9px 0px 0px 9px;
   overflow-y: auto;
 }
@@ -48,11 +48,11 @@
 }
 
 .historyItem h3 {
-  color: rgba(0, 0, 0, 0.60);
+  color: rgba(0, 0, 0, 0.6);
 }
 
-.historyItem p{ 
-  color: rgba(0, 0, 0, 0.60);
+.historyItem p {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .buttonWrapper {
@@ -64,7 +64,7 @@
   letter-spacing: 1.25px;
   align-items: center;
   justify-content: center;
-  color: #1976D2;
+  color: #1976d2;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
