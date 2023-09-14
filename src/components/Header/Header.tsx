@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import Container from '../Container/Container';
-import userIcon from '../../assets/icons/userIcon.svg';
+import appIcon from '../../assets/icons/appIcon.svg';
 import css from './Header.module.css';
 
 const Header: FC = () => {
@@ -11,7 +11,7 @@ const Header: FC = () => {
         <div className={css.userProfile}>
           <NavLink to='/'>
             <img
-              src={userIcon}
+              src={appIcon}
               alt='user'
             />
           </NavLink>
