@@ -130,15 +130,15 @@ const MainPage: FC = () => {
     const isSearchParamsComplate = !!searchParams.size;
     const isSearchFindCharacters = !!charactersList?.results.length;
 
-    if (isSearchParamsComplate && isSearchFindCharacters) {
-      return null;
+    if (isSearchParamsComplate && !isSearchFindCharacters) {
+      return (
+        <div>
+          <h3>There are no search matches...</h3>
+        </div>
+      );
     }
 
-    return (
-      <div>
-        <h3>There are no search matches...</h3>
-      </div>
-    );
+    return null;
   };
 
   return (
