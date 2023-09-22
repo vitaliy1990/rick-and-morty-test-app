@@ -40,7 +40,7 @@ export const getResidentsId = (results: Array<ILocationResults>) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   results.forEach((item: ILocationResults) => item[characterKeyName].forEach((user: string) => residentsId.add(user.split('/').pop())));
-  return [...residentsId.keys()].slice(0, 20) as Array<string>;
+  return [...residentsId.keys()] as Array<string>;
 };
 
 export const fetchFirstEpisodeNameCharacters = async (characterData: Array<Character>) =>

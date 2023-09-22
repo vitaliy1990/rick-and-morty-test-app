@@ -1,7 +1,7 @@
 import { SelectName } from '../../types';
 
 export interface FilterFormProps {
-  handleSubmitForm: (endpoint: SelectName, param: [string, string][]) => void;
+  handleSubmitForm: (endpoint: Array<SelectName>, param: [string, string][]) => void;
 }
 
 export interface FormFilterValues {
@@ -16,6 +16,9 @@ export interface FormFilterValues {
   gender: genderTypes;
   dimension: string;
   episode: string;
+  locationName: string;
+  locationType: string;
+  episodeName: string;
 }
 
 export interface FormSelectValues {
@@ -33,12 +36,25 @@ export interface SearchValues {
   gender: genderTypes;
   dimension: string;
   episode: string;
+  locationName: string;
+  locationType: string;
+  episodeName: string;
+}
+
+export interface CharacterSearchValues {
+  name: string;
+  status: statusTypes;
+  species: string;
+  type: string;
+  gender: genderTypes;
+  episode: string;
 }
 
 export interface CheckboxField {
   id: number;
   label: string;
   name: SelectName;
+  isChecked: boolean;
 }
 
 export interface SearchFilterInputs {

@@ -1,23 +1,5 @@
 import { SelectName } from '../../types';
-import { CheckboxField, FilterInputs, IfieldValidValues, SearchFilterInputs } from './types';
-
-export const selectCheckboxFields: Array<CheckboxField> = [
-  {
-    id: 1,
-    label: 'Character',
-    name: SelectName.character,
-  },
-  {
-    id: 2,
-    label: 'Location',
-    name: SelectName.location,
-  },
-  {
-    id: 3,
-    label: 'Episodes',
-    name: SelectName.episodes,
-  },
-];
+import { FilterInputs, IfieldValidValues, SearchFilterInputs } from './types';
 
 export const characterFilterInputs: Array<SearchFilterInputs> = [
   { id: 1, name: 'name', placeholder: 'Add Name' },
@@ -28,15 +10,12 @@ export const characterFilterInputs: Array<SearchFilterInputs> = [
 ];
 
 export const locationFilterInputs: Array<SearchFilterInputs> = [
-  { id: 1, name: 'name', placeholder: 'Add Name' },
-  { id: 2, name: 'type', placeholder: 'Add Type' },
-  { id: 3, name: 'dimension', placeholder: 'Add Dimension' },
+  { id: 6, name: 'locationName', placeholder: 'Add Location Name' },
+  { id: 7, name: 'locationType', placeholder: 'Add Location Type' },
+  { id: 8, name: 'dimension', placeholder: 'Add Dimension' },
 ];
 
-export const episodesFilterInputs: Array<SearchFilterInputs> = [
-  { id: 1, name: 'name', placeholder: 'Add Name' },
-  { id: 2, name: 'dimension', placeholder: 'Add Dimension' },
-];
+export const episodesFilterInputs: Array<SearchFilterInputs> = [{ id: 9, name: 'episodeName', placeholder: 'Add Episode Name' }];
 
 export const filterInputs: FilterInputs = {
   [SelectName.character]: characterFilterInputs,
