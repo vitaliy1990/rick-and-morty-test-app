@@ -22,6 +22,10 @@
   width: 100%;
 }
 
+.searchInputsWrapper .inputWrapper:first-child input {
+  border-radius: 4px 4px 0px 0px;
+}
+
 .mainLabel {
   color: #272b33;
   padding: 8px 12px;
@@ -79,6 +83,7 @@ button.mainLabel {
 .searchInputsWrapper {
   position: absolute;
   width: 100%;
+  z-index: 100;
 }
 
 .searchFormWrapper input[type='text'] {

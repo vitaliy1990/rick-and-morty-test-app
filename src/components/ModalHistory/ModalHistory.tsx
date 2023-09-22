@@ -13,7 +13,7 @@ const ModalHistory: FC<ModalHistoryProps> = ({ handleClick }) => {
   const lastCharacterViewed = getDataFromLocalStorage('profile');
 
   const renderHistoryValue = (values: [string, string][] | null) => {
-    if (values) {
+    if (values?.length) {
       return values.map((item: [string, string], index: number) => <span key={index}>{`${item[0]}: ${item[1]}`}</span>);
     }
 

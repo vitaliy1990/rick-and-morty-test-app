@@ -1,16 +1,15 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import css from './MainPage.module.css';
 import Loader from '../../components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchCharacters, selectIsLoading, selectCharacters, selectError, fetchCharactersByLocations, fetchCharactersByEpisodes, resetMainState } from './MainPageSlice';
+import { fetchCharacters, selectIsLoading, selectCharacters, selectError, resetMainState, fetchCharactersByFilter } from './MainPageSlice';
 import СharacterCard from '../../components/СharacterCard/СharacterCard';
-import { Character, SelectName } from '../../types';
+import { Character, FilterDataObject, SelectName } from '../../types';
 import Fab from '../../components/Fab/Fab';
 import Pagination from '../../components/Pagination/Pagination';
 import Filter from '../../components/Filter/Filter';
-import { generateSearchParams } from '../../utils/API';
-import { removeRestItemsLocalStorage, setDataInLocalStorage } from '../../utils/browser';
+import { clearSerchItemsFromLocalStorage, setSearchDataInLocalStorage } from '../../utils/browser';
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -29,12 +28,44 @@ const MainPage: FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const unuseParam = searchParams.has('location') || searchParams.has('episode');
+  const generateFilterData = useCallback(() => {
+    const data: FilterDataObject = {
+      character: [],
+      location: [],
+      episodes: [],
+    };
 
-    if (!unuseParam) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of searchParams.entries()) {
+      if (key === 'episodeName') {
+        data.episodes = [...data.episodes, ['name', value]];
+      } else if (key === 'locationName') {
+        data.location = [...data.location, ['name', value]];
+      } else if (key === 'locationType') {
+        data.location = [...data.location, ['type', value]];
+      } else if (key === 'dimension') {
+        data.location = [...data.location, ['dimension', value]];
+      } else {
+        data.character = [...data.character, [key, value]];
+      }
+    }
+
+    return data;
+  }, [searchParams]);
+
+  useEffect(() => {
+    const isLocationParams = searchParams.has('locationName') || searchParams.has('locationType') || searchParams.has('dimension');
+    const isEpisodeParams = searchParams.has('episodeName');
+    const filterData = generateFilterData();
+
+    if (isLocationParams || isEpisodeParams) {
+      dispatch(fetchCharactersByFilter(filterData));
+    } else {
       dispatch(fetchCharacters(searchParams.toString()));
     }
+
+    clearSerchItemsFromLocalStorage();
+    setSearchDataInLocalStorage(filterData);
 
     window.scrollTo({
       top: 0,
@@ -59,32 +90,19 @@ const MainPage: FC = () => {
     return <Loader />;
   }
 
-  const handleSubmit = (endpoint: SelectName, params: [string, string][]) => {
-    const searchData = {
-      endpoint,
-      params,
-    };
+  const handleSubmit = (endpoint: Array<SelectName>, params: [string, string][]) => {
+    const isLocationOrEpisode = endpoint.includes(SelectName.location) || endpoint.includes(SelectName.episodes);
 
-    const paramsFilter = generateSearchParams(searchData.params);
-
-    if (endpoint === SelectName.episodes) {
-      dispatch(fetchCharactersByEpisodes(paramsFilter));
-      setSearchParams({ episode: 'true' });
-    }
-
-    if (endpoint === SelectName.location) {
-      dispatch(fetchCharactersByLocations(paramsFilter));
-      setSearchParams({ location: 'true' });
-    }
-
-    if (endpoint === SelectName.character) {
-      const filterInputsValues = Object.fromEntries(searchData.params);
-      setPageNumber('1');
+    if (isLocationOrEpisode) {
+      const filterInputsValues = Object.fromEntries(params);
       setSearchParams({ ...filterInputsValues });
     }
 
-    removeRestItemsLocalStorage(endpoint);
-    setDataInLocalStorage(endpoint, params);
+    if (endpoint.includes(SelectName.character)) {
+      const filterInputsValues = Object.fromEntries(params);
+      setPageNumber('1');
+      setSearchParams({ ...filterInputsValues });
+    }
   };
 
   const renderCharactersSection = () =>
@@ -108,10 +126,26 @@ const MainPage: FC = () => {
     setPageNumber(pagePointNumber);
   };
 
+  const renderEmptySearch = () => {
+    const isSearchParamsComplate = !!searchParams.size;
+    const isSearchFindCharacters = !!charactersList?.results.length;
+
+    if (isSearchParamsComplate && isSearchFindCharacters) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h3>There are no search matches...</h3>
+      </div>
+    );
+  };
+
   return (
     <div className={css.root}>
       <Filter handleSubmit={handleSubmit} />
       <div className={css.charactersWrapper}>{renderCharactersSection()}</div>
+      {renderEmptySearch()}
       <Fab />
       <Pagination
         pagesCount={charactersList?.info?.pages}

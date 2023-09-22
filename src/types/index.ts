@@ -60,6 +60,12 @@ export interface LocationResponse {
   results: Array<ILocationResults>;
 }
 
+export interface FilterDataObject {
+  character: [] | Array<[string, string]>;
+  location: [] | Array<[string, string]>;
+  episodes: [] | Array<[string, string]>;
+}
+
 export interface IObjectKeys {
   [key: string]: Array<string> | string | number;
 }
